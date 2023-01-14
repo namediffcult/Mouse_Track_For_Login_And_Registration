@@ -22,23 +22,23 @@
 
   - 登录
 
-  href2_2
+  ![image](https://github.com/namediffcult/Mouse_Track_For_Login_And_Registration/blob/master/For_README_PIC/href2_2.gif )
 
   - 登录失败
 
-  href2_3
+  ![image](https://github.com/namediffcult/Mouse_Track_For_Login_And_Registration/blob/master/For_README_PIC/href2_3.gif )
 
   - 注册并登录
 
-  href2_4
+  ![image](https://github.com/namediffcult/Mouse_Track_For_Login_And_Registration/blob/master/For_README_PIC/href2_4.gif )
 
   - 注册失败
 
-  href2_5
+  ![image](https://github.com/namediffcult/Mouse_Track_For_Login_And_Registration/blob/master/For_README_PIC/href2_5.gif )
 
   - 停滞：5s内无操作则无缝衔接主页动画
 
-  href2_6
+  ![image](https://github.com/namediffcult/Mouse_Track_For_Login_And_Registration/blob/master/For_README_PIC/href2_6.gif )
 
 
 
@@ -56,7 +56,7 @@
 
     对于不同长短的数据统一拉伸至50帧长度， 中间空缺部分采用线性插帧
 
-    href3_1
+    ![image](https://github.com/namediffcult/Mouse_Track_For_Login_And_Registration/blob/master/For_README_PIC/href3_1.png )
 
   - 存储
 
@@ -74,19 +74,19 @@
 
     - 形状匹配
 
-    href4_1
+    ![image](https://github.com/namediffcult/Mouse_Track_For_Login_And_Registration/blob/master/For_README_PIC/href4_1.png )
 
     - 位置匹配
 
-    href4_2
+    ![image](https://github.com/namediffcult/Mouse_Track_For_Login_And_Registration/blob/master/For_README_PIC/href4_2.png )
 
     - 大小匹配
 
-    href4_3
+    ![image](https://github.com/namediffcult/Mouse_Track_For_Login_And_Registration/blob/master/For_README_PIC/href4_3.png )
 
     - 方向匹配
 
-    href4_4
+    ![image](https://github.com/namediffcult/Mouse_Track_For_Login_And_Registration/blob/master/For_README_PIC/href4_4.png )
 
     
 
@@ -129,8 +129,6 @@
   - 这前端+CSS代码怎么又臭又长？
 
     ​	我也这么觉得
-
-    href5_1
 
      
 
