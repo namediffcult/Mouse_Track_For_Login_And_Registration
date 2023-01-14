@@ -1,0 +1,508 @@
+html {
+    overflow-x: hidden;
+    overflow-y: hidden;
+    --time: 0.5s
+}
+
+.background_and_word {
+    position: relative;
+}
+
+/*----------------------------------------*/
+.part_head_words {
+    /*不可选中*/
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+    position: absolute;
+    /*字体位置*/
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    /*字体样式*/
+
+    /*用于多重div叠放*/
+    z-index: 2;
+}
+
+
+/*------------------------------------*/
+.word_head {
+    position: absolute;
+    color: white;
+    font-size: 4em;
+    width: 14em;
+    height: 1.2em;
+    border-right: 1px solid transparent;
+    animation: typing forwards 10s steps(42, end), slide-left_head 10s cubic-bezier(0.860, 0.000, 0.070, 1.000) forwards;
+    font-family: Consolas, Monaco;
+    word-break: break-all;
+    overflow: hidden;
+    opacity: 1;
+    z-index: 1;
+}
+
+@keyframes typing {
+    0% {
+        width: 0;
+    }
+    30% {
+        width: 14em;
+    }
+    80% {
+        width: 14em;
+    }
+    100% {
+    }
+}
+
+@keyframes slide-left_head {
+    0% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+    60% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+    100% {
+        opacity: 0;
+        transform: translateX(-1500px);
+    }
+}
+
+/*------------------------------------*/
+.word_right {
+    position: absolute;
+    color: white;
+    font-size: 3em;
+    width: 14em;
+    height: 1.2em;
+    border-right: 1px solid transparent;
+    font-family: Consolas, Monaco;
+    word-break: break-all;
+    overflow: hidden;
+    opacity: 0;
+    z-index: 1;
+
+    transform: translateX(1500px);
+    animation: slide_word_from_right 20s cubic-bezier(0.860, 0.000, 0.070, 1.000) 5s infinite;
+}
+
+@keyframes slide_word_from_right {
+    0% {
+        opacity: 0;
+        transform: translateX(1500px);
+    }
+    15% {
+        opacity: 0;
+        transform: translateX(1500px);
+    }
+    25% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+    50% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+    75% {
+        opacity: 0;
+        transform: translateX(1500px);
+    }
+    100% {
+        opacity: 0;
+        transform: translateX(1500px);
+    }
+
+}
+
+/*------------------------------------*/
+
+.word_left {
+    position: absolute;
+    color: white;
+    font-size: 3em;
+    width: 14em;
+    height: 1.2em;
+    border-right: 1px solid transparent;
+    font-family: Consolas, Monaco;
+    word-break: break-all;
+    overflow: hidden;
+    opacity: 0;
+    z-index: 1;
+
+    transform: translateX(-1500px);
+    animation: slide_word_from_left 20s cubic-bezier(0.860, 0.000, 0.070, 1.000) 15s infinite;
+}
+
+@keyframes slide_word_from_left {
+    0% {
+        opacity: 0;
+        transform: translateX(-1500px);
+    }
+    15% {
+        opacity: 0;
+        transform: translateX(-1500px);
+    }
+    25% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+    50% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+    75% {
+        opacity: 0;
+        transform: translateX(-1500px);
+    }
+    100% {
+        opacity: 0;
+        transform: translateX(-1500px);
+    }
+}
+
+/*------------------------------------*/
+.back_ground {
+    position: absolute;
+    z-index: 1;
+    transform: scale(3, 3) translate(500px, 0px);
+    animation: back_ground_move 20s cubic-bezier(0.860, 0.000, 0.070, 1.000) 6s infinite;
+}
+
+@keyframes back_ground_move {
+    0% {
+        transform: scale(3, 3) translate(500px, 0px);
+    }
+    25% {
+        transform: translate(-1800px, 0px) scale(3, 3);
+    }
+    50% {
+        transform: translate(-1800px, 0px) scale(3, 3);
+    }
+    75% {
+        transform: scale(3, 3) translate(500px, 0px);
+    }
+    100% {
+        transform: scale(3, 3) translate(500px, 0px);
+    }
+}
+
+/*------------------------------------*/
+.back_ground_login {
+    position: absolute;
+    z-index: 3;
+    transform: scale(3, 3) translate(-600px, 0px);
+    animation: back_ground_login var(--time) cubic-bezier(0.860, 0.000, 0.070, 1.000) infinite;
+    animation-play-state: paused;
+    opacity: 0;
+}
+
+@keyframes back_ground_login {
+    0% {
+        transform: scale(3, 3) translate(-600px, 0px);
+        opacity: 0;
+    }
+    50% {
+        transform: scale(3, 3) translate(-600px, 0px);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(3, 3) translate(-600px, 0px);
+        opacity: 0;
+    }
+}
+
+/*------------------------------------*/
+.back_ground_register {
+    position: absolute;
+    z-index: 3;
+    transform: scale(3, 3) translate(500px, 0px);
+    animation: back_ground_register var(--time) cubic-bezier(0.860, 0.000, 0.070, 1.000) infinite;
+    animation-play-state: paused;
+    opacity: 0;
+}
+
+@keyframes back_ground_register {
+    0% {
+        transform: scale(3, 3) translate(500px, 0px);
+        opacity: 0;
+    }
+    50% {
+        transform: scale(3, 3) translate(500px, 0px);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(3, 3) translate(500px, 0px);
+        opacity: 0;
+    }
+}
+
+/*------------------------------------*/
+.part_head2_words {
+    /*不可选中*/
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+    position: relative;
+    /*字体位置*/
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+
+    /*用于多重div叠放*/
+    z-index: 4;
+}
+
+/*------------------------------------*/
+.word_register_part1 {
+    position: absolute;
+    color: white;
+    font-size: 3em;
+    width: 15em;
+    height: 1.2em;
+    border-right: 1px solid transparent;
+    font-family: Consolas, Monaco;
+    word-break: break-all;
+    overflow: hidden;
+    opacity: 0;
+    z-index: 1;
+    animation: word_register_part1 var(--time) cubic-bezier(0.860, 0.000, 0.070, 1.000) infinite both;
+    animation-play-state: paused;
+}
+
+@keyframes word_register_part1 {
+    0% {
+        opacity: 0;
+    }
+    50% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
+/*------------------------------------*/
+.word_register_part1_1 {
+    position: absolute;
+    color: white;
+    font-size: 3em;
+    width: 16em;
+    height: 1.2em;
+    border-right: 1px solid transparent;
+    font-family: Consolas, Monaco;
+    word-break: break-all;
+    overflow: hidden;
+    opacity: 0;
+    z-index: 1;
+
+    animation: word_register_part1_1 var(--time) cubic-bezier(0.860, 0.000, 0.070, 1.000) infinite both, word_register_1_1_shake 0.5s linear infinite;
+    animation-play-state: paused;
+}
+@keyframes word_register_1_1_shake {
+  0% {
+    transform: translate(0);
+  }
+  10% {
+    transform: translate(-4px, -4px);
+  }
+  20% {
+    transform: translate(4px, -4px);
+  }
+  30% {
+    transform: translate(-4px, 4px);
+  }
+  40% {
+    transform: translate(4px, 4px);
+  }
+  50% {
+    transform: translate(-4px, -4px);
+  }
+  60% {
+    transform: translate(4px, -4px);
+  }
+  70% {
+    transform: translate(-4px, 4px);
+  }
+  80% {
+    transform: translate(-4px, -4px);
+  }
+  90% {
+    transform: translate(4px, -4px);
+  }
+  100% {
+    transform: translate(0);
+  }
+}
+@keyframes word_register_part1_1 {
+    0% {
+        opacity: 0;
+    }
+    50% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
+/*------------------------------------*/
+.word_register_part2 {
+    position: absolute;
+    color: white;
+    font-size: 3em;
+    width: 15em;
+    height: 1.2em;
+    border-right: 1px solid transparent;
+    font-family: Consolas, Monaco;
+    word-break: break-all;
+    overflow: hidden;
+    opacity: 0;
+    z-index: 1;
+
+    animation: word_register_part2 var(--time) cubic-bezier(0.860, 0.000, 0.070, 1.000) infinite both;
+    animation-play-state: paused;
+}
+
+@keyframes word_register_part2 {
+    0% {
+        opacity: 0;
+    }
+    50% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+/*------------------------------------*/
+.word_login_part1 {
+    position: absolute;
+    color: white;
+    font-size: 3em;
+    width: 15em;
+    height: 1.2em;
+    border-right: 1px solid transparent;
+    font-family: Consolas, Monaco;
+    word-break: break-all;
+    overflow: hidden;
+    opacity: 0;
+    z-index: 1;
+
+    animation: word_login_part1 var(--time) cubic-bezier(0.860, 0.000, 0.070, 1.000) infinite both;
+    animation-play-state: paused;
+}
+
+@keyframes word_login_part1 {
+    0% {
+        opacity: 0;
+    }
+    50% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
+/*------------------------------------*/
+.word_login_part1_1 {
+    position: absolute;
+    color: white;
+    font-size: 3em;
+    width: 15em;
+    height: 1.2em;
+    border-right: 1px solid transparent;
+    font-family: Consolas, Monaco;
+    word-break: break-all;
+    overflow: hidden;
+    opacity: 0;
+    z-index: 1;
+
+    animation: word_login_part1_1 var(--time) cubic-bezier(0.860, 0.000, 0.070, 1.000) infinite both, word_login_1_1_shake 0.5s linear infinite both;
+    animation-play-state: paused;
+}
+@keyframes word_login_1_1_shake {
+  0% {
+    transform: translate(0);
+  }
+  10% {
+    transform: translate(-2px, -2px);
+  }
+  20% {
+    transform: translate(2px, -2px);
+  }
+  30% {
+    transform: translate(-2px, 2px);
+  }
+  40% {
+    transform: translate(2px, 2px);
+  }
+  50% {
+    transform: translate(-2px, -2px);
+  }
+  60% {
+    transform: translate(2px, -2px);
+  }
+  70% {
+    transform: translate(-2px, 2px);
+  }
+  80% {
+    transform: translate(-2px, -2px);
+  }
+  90% {
+    transform: translate(2px, -2px);
+  }
+  100% {
+    transform: translate(0);
+  }
+}
+@keyframes word_login_part1_1 {
+    0% {
+        opacity: 0;
+    }
+    50% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
+/*------------------------------------*/
+.word_login_part2 {
+    position: absolute;
+    color: white;
+    font-size: 3em;
+    width: 15em;
+    height: 1.2em;
+    border-right: 1px solid transparent;
+    font-family: Consolas, Monaco;
+    word-break: break-all;
+    overflow: hidden;
+    opacity: 0;
+    z-index: 1;
+
+    animation: word_login_part2 var(--time) cubic-bezier(0.860, 0.000, 0.070, 1.000) 0s infinite both;
+    animation-play-state: paused;
+}
+
+@keyframes word_login_part2 {
+    0% {
+        opacity: 0;
+    }
+    50% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}

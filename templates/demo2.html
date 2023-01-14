@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <style>
+        .animation {
+            animation: move 0.5s linear infinite;
+            animation-play-state: paused;
+            border: 1px solid;
+            width: 100px;
+            height: 100px;
+            opacity: 0;
+            display: block;
+        }
+
+        @keyframes move {
+            0% {
+                opacity: 0;
+            }
+            50% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="animation"></div>
+<script type="text/javascript">
+    // 设置动画在600毫秒后暂停，这个时间值可以根据情况（要停止的位置）自己设置
+    var now = 0;
+    function go() {
+        let elem = document.querySelector('.animation');
+        //这样写也可以：elem.style.animationPlayState = 'paused';
+        elem.style['animationPlayState'] = 'running';
+        if (now == 0) {
+            elem.style['display'] = 'block';
+        }
+        setTimeout(function () {
+            elem.style['animationPlayState'] = 'paused';
+            if (now == 0) {
+                now = 1;
+            }
+            else {
+                now = 0;
+                elem.style['display'] = 'none';
+            }
+            console.log(now);
+
+        }, 250);
+    }
+
+</script>
+<input type="button" onclick="go()">
+</body>
+</html>
+

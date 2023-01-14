@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Do something interesting</title>
+    <link href="static/css/welcome_page.css" , rel="stylesheet">
+</head>
+
+<body marginheight=0 marginwidth=0>
+<script src="static/js/jquery.js"></script>
+<div class="background_and_word">
+    <div id="back_ground" class="back_ground">
+        <img src='static/img/background.jpg' draggable='false'>
+    </div>
+    <div id="back_ground_login" class="back_ground_login">
+        <img src='static/img/background.jpg' draggable='false'>
+    </div>
+    <div id="back_ground_register" class="back_ground_register">
+        <img src='static/img/background.jpg' draggable='false'>
+    </div>
+    <div class="part_head_words">
+        <div class="word_head">
+            Do something interesting
+        </div>
+        <div class="word_right">
+            鼠标点击向左滑动松开以登录
+        </div>
+        <div class="word_left">
+            鼠标点击向右滑动松开以注册
+        </div>
+    </div>
+    <div class="part_head2_words">
+        <div class="word_register_part1">
+            鼠标点击任意滑动松开以作为账号
+        </div>
+        <div class="word_register_part1_1">
+            该账号已被注册/过短，请重新输入账号
+        </div>
+        <div class="word_register_part2">
+            鼠标点击任意滑动松开以作为密码
+        </div>
+        <div class="word_login_part1">
+            鼠标点击任意滑动松开以登录账号
+        </div>
+        <div class="word_login_part1_1">
+            账号与密码不匹配请重新输入账号
+        </div>
+        <div class="word_login_part2">
+            鼠标点击任意滑动松开以输入密码
+        </div>
+    </div>
+
+
+</div>
+<script>
+    var _data = [];
+    var _data2 = [];
+    var time_idx = 0;
+    var type_info = 1;
+    var half_time = 250;
+    var pre_option = -1;
+    var Time_elapsed;
+    let back_ground = document.querySelector('.back_ground');
+    let word_head = document.querySelector('.word_head');
+    let word_right = document.querySelector('.word_right');
+    let word_left = document.querySelector('.word_left');
+    let back_ground_register = document.querySelector('.back_ground_register');
+    let word_register_part1 = document.querySelector('.word_register_part1');
+    let word_register_part2 = document.querySelector('.word_register_part2');
+    let word_register_part1_1 = document.querySelector('.word_register_part1_1');
+    let back_ground_login = document.querySelector('.back_ground_login');
+    let word_login_part1 = document.querySelector('.word_login_part1');
+    let word_login_part2 = document.querySelector('.word_login_part2');
+    let word_login_part1_1 = document.querySelector('.word_login_part1_1');
+
+    window.onload = function () {
+        document.onmousedown = function (event) {
+            _data.push(event.clientX);
+            _data.push(event.clientY);
+            _data.push(0);
+            time_idx = 1;
+            console.log(window.outerHeight)
+            console.log(window.outerWidth)
+
+        }
+        document.onmousemove = function (event) {
+            if (time_idx > 0) {
+                time_idx = time_idx + 1;
+                if (time_idx % 20 == 0) {
+                    _data.push(event.clientX);
+                    _data.push(event.clientY);
+                    _data.push(time_idx / 20);
+                    console.log(time_idx / 20)
+                }
+            }
+        }
+        document.onmouseup = function (event) {
+            var data = JSON.stringify(_data);
+            if (type_info == 1) {
+                $.ajax({
+                    url: 'http://127.0.0.1:5000/getData_for_info1',
+                    data: {
+                        "idx": data
+                    },
+                    type: 'post',
+                    dataType: 'json',
+                    async: false,
+                    success: function (user_info) {
+                        console.log("success", user_info)
+
+                        if (user_info.length == 0) {
+                            {# do nothing #}
+                            _data = [];
+                            _data2 = [];
+                        } else {
+                            {# 去掉起始背景4元素 #}
+                            back_ground.style['animationPlayState'] = 'paused';
+                            word_head.style['animationPlayState'] = 'paused';
+                            word_left.style['animationPlayState'] = 'paused';
+                            word_right.style['animationPlayState'] = 'paused';
+                            if (user_info[0] == 2) {
+                                {# 注册 #}
+                                back_ground_register.style['animationPlayState'] = 'running';
+                                word_register_part1.style['animationPlayState'] = 'running';
+                                back_ground_register.style['display'] = 'block';
+                                word_register_part1.style['display'] = 'block';
+                                word_register_part2.style['display'] = 'none';
+                                word_register_part1_1.style['display'] = 'none';
+                                setTimeout(function () {
+                                    back_ground_register.style['animationPlayState'] = 'paused';
+                                    word_register_part1.style['animationPlayState'] = 'paused';
+                                }, half_time);
+                                type_info = 2;
+                            } else {
+                                {# 登录 #}
+                                back_ground_login.style['animationPlayState'] = 'running';
+                                word_login_part1.style['animationPlayState'] = 'running';
+                                back_ground_login.style['display'] = 'block';
+                                word_login_part1.style['display'] = 'block';
+                                word_login_part2.style['display'] = 'none';
+                                word_login_part1_1.style['display'] = 'none';
+                                setTimeout(function () {
+                                    back_ground_login.style['animationPlayState'] = 'paused';
+                                    word_login_part1.style['animationPlayState'] = 'paused';
+                                }, half_time);
+                                type_info = 4;
+                            }
+                        }
+                    },
+                    error: function () {
+                        console.log("something wrong in getData_for_info1");
+                    }
+                });
+            } else if (type_info == 2) {
+                _data2 = _data;
+                word_register_part1.style['animationPlayState'] = 'running';
+                word_register_part2.style['animationPlayState'] = 'running';
+                word_register_part2.style['display'] = 'block';
+                setTimeout(function () {
+                    word_register_part1.style['animationPlayState'] = 'paused';
+                    word_register_part2.style['animationPlayState'] = 'paused';
+                    word_register_part1.style['display'] = 'none';
+                }, half_time);
+                type_info = 3;
+            } else if (type_info == 3) {
+                var data = JSON.stringify(_data);
+                var data2 = JSON.stringify(_data2);
+                $.ajax({
+                    url: 'http://127.0.0.1:5000/getData_for_info3',
+                    data: {
+                        "idx1": data,
+                        "idx2": data2
+                    },
+                    type: 'post',
+                    dataType: 'json',
+                    async: false,
+                    success: function (user_info) {
+                        console.log("success getData_for_info3", user_info)
+                        _data = [];
+                        _data2 = [];
+                        if (user_info.length == 0) {
+                            {#   注册账号有误， 请重新输入   #}
+                            word_register_part2.style['animationPlayState'] = 'running';
+                            word_register_part1_1.style['animationPlayState'] = 'running';
+                            word_register_part1_1.style['display'] = 'block';
+                            setTimeout(function () {
+                                word_register_part2.style['animationPlayState'] = 'paused';
+                                word_register_part1_1.style['animationPlayState'] = 'paused';
+                                word_register_part2.style['display'] = 'block';
+                            }, half_time);
+                            type_info = 7;
+                        } else {
+                            window.location.href = '/';
+                        }
+                    },
+                    error: function () {
+                        console.log("something wrong in getData_for_info3");
+                    }
+                });
+            } else if (type_info == 4) {
+                _data2 = _data;
+                word_login_part1.style['animationPlayState'] = 'running';
+                word_login_part2.style['animationPlayState'] = 'running';
+                word_login_part2.style['display'] = 'block';
+                setTimeout(function () {
+                    word_login_part1.style['animationPlayState'] = 'paused';
+                    word_login_part2.style['animationPlayState'] = 'paused';
+                    word_login_part1.style['display'] = 'none';
+                }, half_time);
+                type_info = 5;
+            } else if (type_info == 5) {
+                var data = JSON.stringify(_data);
+                var data2 = JSON.stringify(_data2);
+                $.ajax({
+                    url: 'http://127.0.0.1:5000/getData_for_info5',
+                    data: {
+                        "idx1": data,
+                        "idx2": data2
+                    },
+                    type: 'post',
+                    dataType: 'json',
+                    async: false,
+                    success: function (user_info) {
+                        console.log("success getData_for_info5", user_info)
+                        _data = [];
+                        _data2 = [];
+                        if (user_info.length == 0) {
+                            {#   账号密码不匹配， 请重新输入   #}
+                            word_login_part2.style['animationPlayState'] = 'running';
+                            word_login_part1_1.style['animationPlayState'] = 'running';
+                            word_login_part1_1.style['display'] = 'block';
+                            setTimeout(function () {
+                                word_login_part2.style['animationPlayState'] = 'paused';
+                                word_login_part1_1.style['animationPlayState'] = 'paused';
+                                word_login_part2.style['display'] = 'none';
+                            }, half_time);
+                            type_info = 6;
+                        } else {
+                            window.location.href = '/login_in/' + user_info[0].toString();
+                        }
+                    },
+                    error: function () {
+                        console.log("something wrong in getData_for_info5");
+                    }
+                });
+            } else if (type_info == 6) {
+                _data2 = _data;
+                word_login_part2.style['animationPlayState'] = 'running';
+                word_login_part1_1.style['animationPlayState'] = 'running';
+                word_login_part2.style['display'] = 'block';
+                setTimeout(function () {
+                    word_login_part2.style['animationPlayState'] = 'paused';
+                    word_login_part1_1.style['animationPlayState'] = 'paused';
+                    word_login_part1_1.style['display'] = 'none';
+                }, half_time);
+                type_info = 5;
+            } else if (type_info == 7) {
+                _data2 = _data;
+                word_register_part2.style['animationPlayState'] = 'running';
+                word_register_part1_1.style['animationPlayState'] = 'running';
+                word_register_part2.style['display'] = 'block';
+                setTimeout(function () {
+                    word_register_part2.style['animationPlayState'] = 'paused';
+                    word_register_part1_1.style['animationPlayState'] = 'paused';
+                    word_register_part1_1.style['display'] = 'none';
+                }, half_time);
+                type_info = 3;
+            }
+
+            {# for restart #}
+
+            function stop_setTimeout() {
+                Time_elapsed && clearTimeout(Time_elapsed);
+            }
+
+            if (type_info != 1) {
+                pre_option = type_info;
+                stop_setTimeout();
+                Time_elapsed = setTimeout(function () {
+                    back_ground.style['animationPlayState'] = 'running';
+                    word_head.style['animationPlayState'] = 'running';
+                    word_left.style['animationPlayState'] = 'running';
+                    word_right.style['animationPlayState'] = 'running';
+                    if (type_info == 2) {
+                        word_register_part1.style['animationPlayState'] = 'running';
+                        back_ground_register.style['animationPlayState'] = 'running';
+                        setTimeout(function () {
+                            word_register_part1.style['animationPlayState'] = 'paused';
+                            back_ground_register.style['animationPlayState'] = 'paused';
+                            back_ground_register.style['display'] = 'none';
+                            word_register_part1.style['display'] = 'none';
+                        }, half_time);
+                    } else if (type_info == 3) {
+                        back_ground_register.style['animationPlayState'] = 'running';
+                        word_register_part2.style['animationPlayState'] = 'running';
+                        setTimeout(function () {
+                            word_register_part2.style['animationPlayState'] = 'paused';
+                            back_ground_register.style['animationPlayState'] = 'paused';
+                            back_ground_register.style['display'] = 'none';
+                            word_register_part2.style['display'] = 'none';
+                        }, half_time);
+                    } else if (type_info == 4) {
+                        word_login_part1.style['animationPlayState'] = 'running';
+                        back_ground_login.style['animationPlayState'] = 'running';
+                        setTimeout(function () {
+                            word_login_part1.style['animationPlayState'] = 'paused';
+                            back_ground_login.style['animationPlayState'] = 'paused';
+                            back_ground_login.style['display'] = 'none';
+                            word_login_part1.style['display'] = 'none';
+                        }, half_time);
+                    } else if (type_info == 5) {
+                        back_ground_login.style['animationPlayState'] = 'running';
+                        word_login_part2.style['animationPlayState'] = 'running';
+                        setTimeout(function () {
+                            word_login_part2.style['animationPlayState'] = 'paused';
+                            back_ground_login.style['animationPlayState'] = 'paused';
+                            back_ground_login.style['display'] = 'none';
+                            word_login_part2.style['display'] = 'none';
+                        }, half_time);
+                    } else if (type_info == 6) {
+                        back_ground_login.style['animationPlayState'] = 'running';
+                        word_login_part1_1.style['animationPlayState'] = 'running';
+                        setTimeout(function () {
+                            word_login_part1_1.style['animationPlayState'] = 'paused';
+                            back_ground_login.style['animationPlayState'] = 'paused';
+                            back_ground_login.style['display'] = 'none';
+                            word_login_part1_1.style['display'] = 'none';
+                        }, half_time);
+                    } else if (type_info == 7) {
+                        back_ground_register.style['animationPlayState'] = 'running';
+                        word_register_part1_1.style['animationPlayState'] = 'running';
+                        setTimeout(function () {
+                            word_register_part1_1.style['animationPlayState'] = 'paused';
+                            back_ground_register.style['animationPlayState'] = 'paused';
+                            back_ground_register.style['display'] = 'none';
+                            word_register_part1_1.style['display'] = 'none';
+                        }, half_time);
+                    }
+                    type_info = 1;
+
+
+                }, 5000);
+            }
+            time_idx = 0;
+            _data = [];
+        }
+    }
+</script>
+
+
+</body>
+</html>
+

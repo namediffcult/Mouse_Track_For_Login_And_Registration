@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <style>
+        .animation {
+            animation: move 0.5s linear infinite;
+            animation-play-state: paused;
+            border: 1px solid;
+            width: 100px;
+            height: 100px;
+            opacity: 0;
+            display: block;
+        }
+
+        @keyframes move {
+            0% {
+                opacity: 0;
+            }
+            50% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="animation"></div>
+<script type="text/javascript">
+    var now = 0;
+    function go() {
+        let elem = document.querySelector('.animation');
+        elem.style['animationPlayState'] = 'running';
+        setTimeout(function () {
+            elem.style['animationPlayState'] = 'paused';
+            if (now == 0) {
+                now = 1;
+            }
+            else {
+                now = 0;
+            }
+        }, 250);
+    }
+
+</script>
+<input type="button" onclick="go()">
+</body>
+</html>
+
